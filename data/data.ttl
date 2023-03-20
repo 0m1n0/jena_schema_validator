@@ -8,7 +8,7 @@ user:1 a ex:User ;
     ex:email "too_complicated_name@too_long.com" ;
     ex:has_user_to_project_association [ a ex:UserToProjectAssociation ;
             rdf:object project:1 ] ;
-    ex:name "user:Tutankhamen" ;
+    ex:name "Tutankhamen" ;
     ex:position "TEAM_MEMBER" ;
     ex:surname "Mummy" .
 

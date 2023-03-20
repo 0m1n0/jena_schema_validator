@@ -1,0 +1,165 @@
+# metamodel_version: 1.7.0
+# version: 0.0.1
+@prefix ex: <https://example/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Association a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class ex:NamedThing ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path rdf:object ],
+        [ sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path rdf:predicate ],
+        [ sh:class ex:NamedThing ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path rdf:subject ] ;
+    sh:targetClass ex:Association .
+
+ex:Container a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class ex:User ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path ex:users ],
+        [ sh:class ex:Project ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path ex:projects ] ;
+    sh:targetClass ex:Container .
+
+ex:NamedThingProject a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A base class with common properties of project, experiment, study_case and sample" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path ex:name ],
+        [ sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path ex:description ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path ex:date_created ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path ex:is_archived ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path ex:date_modified ],
+        [ sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path ex:id ] ;
+    sh:targetClass ex:NamedThingProject .
+
+ex:UserToProjectAssociation a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path rdf:predicate ],
+        [ sh:class ex:Project ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path rdf:object ],
+        [ sh:class ex:User ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path rdf:subject ] ;
+    sh:targetClass ex:UserToProjectAssociation .
+
+ex:NamedThing a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path ex:id ] ;
+    sh:targetClass ex:NamedThing .
+
+ex:Project a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path ex:is_favorite ],
+        [ sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path ex:owner_id ],
+        [ sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path ex:due_date ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path ex:name ],
+        [ sh:maxCount 1 ;
+            sh:order 9 ;
+            sh:path ex:id ],
+        [ sh:in ( "ON_TIME" "DELAYED" "WARNING" "FINISHED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path ex:status ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 8 ;
+            sh:path ex:is_archived ],
+        [ sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path ex:description ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 7 ;
+            sh:path ex:date_modified ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 6 ;
+            sh:path ex:date_created ] ;
+    sh:targetClass ex:Project .
+
+ex:User a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path ex:name ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path ex:surname ],
+        [ sh:in ( "PROJECT_LEADER" "TEAM_MEMBER" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path ex:position ],
+        [ sh:class ex:UserToProjectAssociation ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 5 ;
+            sh:path ex:has_user_to_project_association ],
+        [ sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path ex:email ],
+        [ sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path ex:id ],
+        [ sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path ex:image ] ;
+    sh:targetClass ex:User .
+
+

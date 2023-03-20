@@ -1,0 +1,41 @@
+@prefix ex: <https://example/> .
+@prefix project: <https://msio/examples/backend/project/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix user: <https://msio/examples/backend/user/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+user:1 a ex:User ;
+    ex:email "too_complicated_name@too_long.com" ;
+    ex:has_user_to_project_association [ a ex:UserToProjectAssociation ;
+            rdf:object project:1 ] ;
+    ex:name "user:Tutankhamen" ;
+    ex:position "TEAM_MEMBER" ;
+    ex:surname "Mummy" .
+
+user:1234 a ex:User ;
+    ex:email "leo@art.com" ;
+    ex:image "image.png" ;
+    ex:name "Leonardo da Vinci" ;
+    ex:position "TEAM_MEMBER" ;
+    ex:surname "Leo" .
+
+user:3000 a ex:User ;
+    ex:name "Julius Ceasar" ;
+    ex:position "PROJECT_LEADER" ;
+    ex:surname "Jojo" .
+
+project:1 a ex:Project ;
+    ex:date_created "0001-01-01T12:00:00+00:00"^^xsd:dateTime ;
+    ex:date_modified "2000-12-31T09:00:00.594000+00:00"^^xsd:dateTime ;
+    ex:description "Beginning of History" ;
+    ex:is_archived false ;
+    ex:is_favorite false ;
+    ex:name "Born" ;
+    ex:status "FINISHED" .
+
+[] a ex:Container ;
+    ex:projects project:1 ;
+    ex:users user:1,
+        user:1234,
+        user:3000 .
+
